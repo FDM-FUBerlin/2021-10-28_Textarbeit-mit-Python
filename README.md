@@ -9,6 +9,12 @@
 <p align="center">Heinz-Alexander Fütterer und Selina Reinhard</p>
 <p align="center">Universitätsbibliothek | Freie Universität Berlin</p>
 
+<p align="center">
+  <a href="https://mybinder.org/v2/gh/FDM-FUBerlin/Textarbeit-mit-Python.git/HEAD">
+    <img src="https://mybinder.org/badge_logo.svg" alt="Binder">
+  </a>
+</p>
+
 ## 🧐 About <a name="about"></a>
 
 Python ist eine weit verbreitete Programmiersprache, die vergleichsweise einfach zu lernen ist. Dieser Workshop bietet einen Einstieg für alle, die wissen wollen, was es mit Python auf sich hat und ob die Programmierung mit Python für die eigene Arbeit mit Texten infrage kommt. Nach kurzem theoretischem Input wird die Arbeit mit Python anhand eines Beispiels anwendungsorientiert geübt.
@@ -42,49 +48,55 @@ Alle für die Teilnahme am Workshop bzw. zum Nacharbeiten benötigten Informatio
 
 ### Voraussetzungen
 
-Eine aktuelle Python-Version (> Python 3.6) wird benötigt. Zur Installation siehe:
+Eine aktuelle Python-Version (>= Python 3.8) wird benötigt. Zur Installation siehe:
 - https://www.python.org/downloads/
 - https://wiki.python.org/moin/BeginnersGuide/Download
 
 ### Installation
 Zunächst dieses Git-Repository als ZIP herunterladen und entpacken bzw. mit `git clone` klonen:
-```
+
+```console
 git clone https://github.com/FDM-FUBerlin/Textarbeit-mit-Python.git
 cd Textarbeit-mit-Python/
 ```
 
-Die benötigten Bibliotheken lassen sich am einfachsten mit `pipenv` installieren.
-```
-pip install --upgrade --user pipenv
-pipenv install
-pipenv run python -m nltk.downloader punkt stopwords
+Die benötigten Bibliotheken lassen sich am einfachsten mit `poetry` installieren.
+
+```console
+pip install --upgrade --user poetry
+poetry config virtualenvs.in-project true
+poetry install --no-dev
+poetry run python -m nltk.downloader punkt stopwords
+poetry run pip install seaborn==0.11.2
 ```
 
 Wenn ebenfalls `JupyterLab` installiert werden soll:
 
-```
-pipenv install --dev
+```console
+poetry install --extras jupyter
 ```
 
 ## 🎈 Nutzung <a name="usage"></a>
 Die Jupyter-Notebooks in `notebooks/` sind am besten mit `JupyterLab` auszuführen:
 
-```
-pipenv run jupyter lab
+```console
+poetry run jupyter lab
 ```
 
 Alle Notebooks können mit folgendem Befehl ausgeführt werden.
+
+```console
+poetry run jupyter nbconvert --to notebook --execute --inplace --allow-errors notebooks/*.ipynb
 ```
-pipenv run jupyter nbconvert --to notebook --execute --inplace --allow-errors notebooks/*.ipynb
-```
-Daraufhin werden die benötigten Daten aus Wikisource heruntergeladen und aufbereitet.
+Daraufhin werden die benötigten Textdaten heruntergeladen und aufbereitet.
 
 ## ⛏️ Bibliotheken <a name="built_using"></a>
 - [NLTK](https://www.nltk.org/) - Natural Language Processing
 - [pandas](https://pandas.pydata.org/) - Datenanalyse
 - [requests](https://docs.python-requests.org/en/latest/) - Web
-- [beautifulsoup4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) - Verarbeitung von HTML
+- [seaborn](https://seaborn.pydata.org/) - Visualierungen
 - [stylecloud](https://github.com/minimaxir/stylecloud) - Visualierungen
+- [HanTa](https://github.com/wartaal/HanTa) - Natural Language Processing
 - uvm.
 
 ## ✍️ Autor:innen <a name="authors"></a>
@@ -98,3 +110,4 @@ Die Inhalte dieses Git-Repositories sind unter einer [Creative Commons Namensnen
 
 ## 🎉 Danksagung <a name="acknowledgement"></a>
 - README basiert auf [README_TEMPLATES/Standard.md](https://github.com/kylelobo/The-Documentation-Compendium/blob/master/en/README_TEMPLATES/Standard.md)
+- Die Textanalysen basieren auf Märchenkorpus (lizenziert unter CC BY 3.0): Walter, M. (2013). "Märchenkorpus Version 1.0" Humboldt-Universität zu Berlin. doi:[10.34644/laudatio-dev-UyRUCnMB7CArCQ9C63ji](https://doi.org/10.34644/laudatio-dev-UyRUCnMB7CArCQ9C63ji).

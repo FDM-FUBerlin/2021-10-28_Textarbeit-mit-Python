@@ -1,0 +1,9 @@
+dependencies:
+  - python=3.10
+  - nltk=3.7
+  - pandas=1.4.2
+  - requests=2.27.1
+  - seaborn=0.11.2
+  # versions are not important
+  - session-info
+  - nbstripout

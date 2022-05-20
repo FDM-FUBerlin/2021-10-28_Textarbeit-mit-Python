@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+# Update pip
+pip install --upgrade pip
+
+# Install libraries, that are not available on conda
+pip install stylecloud==0.5.2 HanTa==0.2.0
+
+# Display installed versions
+python -V
+jupyter --version
+pip list
+
+# Install NLTK corpora and tokenizers
+python -m nltk.downloader punkt stopwords
+
+# Download corpus from https://www.laudatio-repository.org/browse/corpus/UyRUCnMB7CArCQ9C63ji/corpora
+jupyter nbconvert --to notebook --execute --inplace notebooks/ws-pytext-pt04a-daten-beschaffen.ipynb
+
+# Strip output from Jupyter notebook cells
+nbstripout notebooks/*.ipynb
