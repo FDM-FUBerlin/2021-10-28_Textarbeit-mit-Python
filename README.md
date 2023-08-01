@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=300px height=300px src="data/images/frog-wordcloud.png" alt="Project logo"></a>
+ <img width=300px height=300px src="data/04_images/frog-wordcloud.png" alt="Project logo"></a>
 </p>
 
 <h1 align="center">Textarbeit mit Python - Erste Schritte</h1>
@@ -10,7 +10,7 @@
 <p align="center">Universitätsbibliothek | Freie Universität Berlin</p>
 
 <p align="center">
-  <a href="https://mybinder.org/v2/gh/FDM-FUBerlin/Textarbeit-mit-Python.git/HEAD">
+  <a href="https://mybinder.org/v2/gh/FDM-FUBerlin/Textarbeit-mit-Python.git/2023">
     <img src="https://mybinder.org/badge_logo.svg" alt="Binder">
   </a>
 </p>
@@ -60,33 +60,43 @@ git clone https://github.com/FDM-FUBerlin/Textarbeit-mit-Python.git
 cd Textarbeit-mit-Python/
 ```
 
-Die benötigten Bibliotheken lassen sich am einfachsten mit `poetry` installieren.
+Die benötigten Bibliotheken lassen sich am einfachsten mit `pip` installieren.
 
+#### Unter Windows
 ```console
-pip install --upgrade --user poetry
-poetry config virtualenvs.in-project true
-poetry install --no-dev
-poetry run python -m nltk.downloader punkt stopwords
-poetry run pip install seaborn==0.11.2
+python -m venv .venv
+.venv\Scripts\activate
+(.venv) pip install --upgrade pip
+(.venv) pip install .
+(.venv) python -m nltk.downloader punkt stopwords
+```
+
+#### Unter Linux/MacOS
+```console
+python -m venv .venv
+source .venv/bin/activate
+(.venv) pip install --upgrade pip
+(.venv) pip install .
+(.venv) python -m nltk.downloader punkt stopwords
 ```
 
 Wenn ebenfalls `JupyterLab` installiert werden soll:
 
 ```console
-poetry install --extras jupyter
+(.venv) pip install ".[jupyter]"
 ```
 
 ## 🎈 Nutzung <a name="usage"></a>
 Die Jupyter-Notebooks in `notebooks/` sind am besten mit `JupyterLab` auszuführen:
 
 ```console
-poetry run jupyter lab
+(.venv) jupyter lab
 ```
 
 Alle Notebooks können mit folgendem Befehl ausgeführt werden.
 
 ```console
-poetry run jupyter nbconvert --to notebook --execute --inplace --allow-errors notebooks/*.ipynb
+(.venv) jupyter nbconvert --to notebook --execute --inplace --allow-errors notebooks/*.ipynb
 ```
 Daraufhin werden die benötigten Textdaten heruntergeladen und aufbereitet.
 

@@ -5,8 +5,8 @@ set -e
 # Update pip
 pip install --upgrade pip
 
-# Install libraries, that are not available on conda
-pip install stylecloud==0.5.2 HanTa==0.2.0
+# Install dependencies
+pip install .
 
 # Display installed versions
 python -V
@@ -20,4 +20,5 @@ python -m nltk.downloader punkt stopwords
 jupyter nbconvert --to notebook --execute --inplace notebooks/ws-pytext-pt04a-daten-beschaffen.ipynb
 
 # Strip output from Jupyter notebook cells
+pip install nbstripout
 nbstripout notebooks/*.ipynb

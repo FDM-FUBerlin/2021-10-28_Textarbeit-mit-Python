@@ -1,45 +1,84 @@
-[tool.poetry]
+[project]
 name = "textarbeit-mit-python"
-version = "2022.06.14"
+version = "2023.08.15"
 description = "Workshop to get to know the programming language Python"
-authors = [
-    "Heinz-Alexander Fütterer <fuetterer@ub.fu-berlin.de>",
-    "Selina Reinhard <selina.reinhard@fu-berlin.de>"
-]
+readme = "README.md"
 license = "CC-BY-4.0"
-
-[tool.poetry.dependencies]
-python = "^3.8"
-HanTa = "^0.2.0"
-jupyterlab = {version = "^3.4.2", optional = true}
-nltk = "^3.7"
-pandas = "^1.4.2"
-requests = "^2.27.1"
-session-info = "^1.0.0"
-stylecloud = "^0.5.2"
-# Seaborn installation failure, when compiling from source
-# install with "pip install seaborn==0.11.2"
-# seaborn = "^0.11.2"
-
-[tool.poetry.extras]
-jupyter = ["jupyterlab"]
-
-[tool.poetry.dev-dependencies]
-black = {extras = ["jupyter"], version = "^22.3.0"}
-isort = "^5.10.1"
-nbqa = "^1.3.1"
-nbstripout = "^0.5.0"
-nbval = "^0.9.6"
-pytest = "^7.1.2"
+authors = [
+  { name = "Heinz-Alexander Fütterer", email = "fuetterer@ub.fu-berlin.de" },
+  { name = "Selina Reinhard", email = "selina.reinhard@fu-berlin.de" },
+]
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+  "hanta~=1.1",
+  "nltk~=3.8",
+  "pandas~=2.0",
+  "requests~=2.31",
+  "seaborn~=0.12",
+  "session-info",
+  "wordcloud~=1.9",
+]
+[project.optional-dependencies]
+jupyter = [
+  "jupyterlab",
+]
+[project.urls]
+Source = "https://github.com/FDM-FUBerlin/Textarbeit-mit-Python"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+build-backend = "hatchling.build"
+requires = [
+  "hatchling",
+]
+
+[tool.hatch.envs.default]
+dependencies = [
+  "nbval",
+  "pytest",
+]
+[tool.hatch.envs.default.scripts]
+test = "pytest --nbval-lax {args:notebooks}"
+
+[tool.hatch.envs.lint]
+detached = true
+dependencies = [
+  "black[jupyter]",
+  "nbstripout",
+  "ruff",
+]
+[tool.hatch.envs.lint.scripts]
+fmt = "black {args:notebooks}"
+lint = "ruff {args:notebooks}"
+strip = "nbstripout {args:notebooks}"
+all = [
+  "fmt",
+  "lint",
+]
 
 [tool.black]
 line-length = 100
+target_version = ["py38", "py39", "py310", "py311"]
 
-[tool.isort]
-profile = "black"
-line_length = 100
-py_version = 310
+[tool.ruff]
+line-length = 100
+select = ["B", "E", "F", "I", "S", "TCH", "UP"]
+ignore = [
+  "B018", # useless-expression
+  "E402", # module-import-not-at-top-of-file
+  "E501", # line-too-long
+  "F401", # unused-import
+  "E703", # useless-semicolon
+]
+target-version = "py38"
+include = ["*.py", "*.ipynb", "pyproject.toml"]
+
+[tool.ruff.per-file-ignores]
+"notebooks/ws-pytext-pt02-uebung-grundlagen.ipynb" = ["B015", "UP003"]
+"notebooks/ws-pytext-pt03b-nltk-basics.ipynb" = ["UP015"]
